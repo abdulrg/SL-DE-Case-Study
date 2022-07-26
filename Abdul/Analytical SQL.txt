@@ -1,0 +1,8 @@
+ select OI.*,cease.No_days_sales_ceased from (
+ select OI.[order_item_product_id] , count(distinct O.[order_date]) No_of_days_sold_with_sales,sum(OI.[order_item_quantity] ) total_items_sold_to_date
+  from [slabs].[dbo].orders O inner join  [slabs].[dbo].[order_items] OI  on O.order_id = OI.order_item_order_id
+   where O.order_date>=( SELECT CONVERT(datetime, '2014-07-24')-59 )
+  group by OI.[order_item_product_id]) OI
+   inner join (   select [order_item_product_id],
+ DATEDIFF(DAY, CONVERT(DATE, order_date),CONVERT(datetime, '2014-07-24')) No_days_sales_ceased
+  from [slabs].[dbo].[order_items] OI left join [slabs].[dbo].orders O on O.order_id = OI.order_item_order_id)  cease on OI.[order_item_product_id] = cease.[order_item_product_id]

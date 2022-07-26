@@ -1,0 +1,2 @@
+implement the data mart with product information at date granulrity 
+and apply analytics functions like sum or count during the data ingestion from LANDING to DATA WAREHOUSE so that there is no need of applying analytical functions in the data mart.
